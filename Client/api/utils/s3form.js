@@ -1,10 +1,12 @@
 import util from 'util';
-import moment from 'moment';
-import helpers from './helpers';
+//import moment from 'moment';
+import Helpers from './helpers';
+import Policy from './policy';
 
 const ACCESS_KEY_FIELD_NAME = "AWSAccessKeyId";
 const POLICY_FIELD_NAME = "policy";
 const SIGNATURE_FIELD_NAME = "signature";
+
 
 class S3Form {
     constructor(policy) {
@@ -17,6 +19,7 @@ class S3Form {
     }
     
     generateS3FormFields() {
+        var self = this;
         var conditions = this.policy.getConditions();
     
         var formFields = [];
@@ -24,13 +27,13 @@ class S3Form {
         conditions.forEach(function (elem) {
             if (Array.isArray(elem)) {
                 if (elem[1] === "$key")
-                    formFields.push(hiddenField("key", elem[2] + "${filename}"));
+                    formFields.push(self.hiddenField("key", elem[2] + "${filename}"));
             } else {
     
                 var key = Object.keys(elem)[0];
                 var value = elem[key];
                 if (key !== "bucket")
-                    formFields.push(hiddenField(key, value));
+                    formFields.push(self.hiddenField(key, value));
             }
         });
     
@@ -38,13 +41,13 @@ class S3Form {
     }
     
     addS3CredientalsFields(fields, awsConfig) {
-        fields.push(hiddenField(
+        fields.push(this.hiddenField(
             ACCESS_KEY_FIELD_NAME, awsConfig.accessKeyId));
     
-        fields.push(hiddenField(
+        fields.push(this.hiddenField(
             POLICY_FIELD_NAME, this.policy.generateEncodedPolicyDocument()));
     
-        fields.push(hiddenField(
+        fields.push(this.hiddenField(
             SIGNATURE_FIELD_NAME, this.policy.generateSignature(awsConfig.secretAccessKey)));
         return fields;
     }

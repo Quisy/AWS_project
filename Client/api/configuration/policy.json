@@ -1,0 +1,26 @@
+{
+    "expiration": {
+        "day": 1
+    },
+    "conditions": [
+        [
+            "starts-with",
+            "$key",
+            "Photos/"
+        ],
+        {
+            "bucket": "psoirs3bucket"
+        },
+        {
+            "acl": "private"
+        },
+        {
+            "success_action_redirect": "http://localhost:3000"
+        },
+        [
+            "content-length-range",
+            0,
+            1048576
+        ]
+    ]
+}

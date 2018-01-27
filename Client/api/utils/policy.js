@@ -1,16 +1,17 @@
 import util from 'util';
 import moment from 'moment';
-import helpers from './helpers';
+import Helpers from './helpers';
 
 class Policy {
     constructor(policyData) {
+        this.helpers = new Helpers();
         this.policy = policyData;	
         this.policy.expiration = moment().add(policyData.expiration).toJSON();
         console.log("policyData " + util.inspect(policyData, false, null));	
     }
 
     generateEncodedPolicyDocument(){
-        return helpers.encode(this.policy, 'base64');		
+        return this.helpers.encode(this.policy, 'base64');		
     }
     
     getConditions(){
@@ -18,7 +19,7 @@ class Policy {
     }
     
     generateSignature(secretAccessKey){
-        return helpers.hmac("sha1", secretAccessKey, this.generateEncodedPolicyDocument(), 'base64');	
+        return this.helpers.hmac("sha1", secretAccessKey, this.generateEncodedPolicyDocument(), 'base64');	
     }
     
     getConditionValueByKey(key){

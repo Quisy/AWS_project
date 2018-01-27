@@ -1,18 +1,32 @@
 import express from 'express';
-import PictureRoutes from './routes/pictureRoutes'
-import bodyParser from 'body-parser'
-import fs from 'fs'
+import PictureRoutes from './routes/pictureRoutes';
+import fs from 'fs';
+import Helpers from './utils/helpers';
+import Service from './service';
 
-let app = express();
 let port = process.env.PORT || 3000;
-//app.server = http.createServer(app);
+let ACTIONS_FOLDER = "./actions/";
+let ACTIONS_CONFIG_FILE = "./api/configuration/actions.json";
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+let helpers = new Helpers();
+let actionsCofig = helpers.readJSONFile(ACTIONS_CONFIG_FILE);
+
+actionsCofig.forEach(function (elem) {
+    if (elem.action && elem.path) {
+        if (!elem.action.template) {
+            elem.action = require(ACTIONS_FOLDER + elem.action).action;
+            console.log(elem.action);
+        }
+    } else {
+        console.log("unknown configuration: " + JSON.stringify(elem));
+    }
+});
 
 //Routes
-let pictureRouters = new PictureRoutes(app);
+//let pictureRouters = new PictureRoutes(app);
 
-app.listen(port);
+let appService = new Service(actionsCofig);
+appService.run(port);
 
-export default app;
+export default appService
+
