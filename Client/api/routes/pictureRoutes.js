@@ -5,9 +5,8 @@ class PictureRoutes
     constructor(app) {
         let controller = new PictureController();
         
-        app.route('/test')
-        .get(controller.testGet)
-        .post(controller.testPost);
+        app.route('/')
+        .get(controller.renderMainPage)
     }
 }
 
