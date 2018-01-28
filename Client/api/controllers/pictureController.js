@@ -33,15 +33,19 @@ class PictureController {
 
     async modifyPictures(req, res) {
         console.log(req.body.keys);
-        if(!req.body.keys)
-        {
-            console.log('dsadas0');
-            Statics.Message = {type: 'danger', content: 'No picture selected'};
+        if (!req.body.keys) {
+            Statics.Message = { type: 'danger', content: 'No picture selected' };
             res.redirect('/');
             return;
         }
 
-        let selectedPicturesKeys = [req.body.keys];
+        let selectedPicturesKeys = [];
+
+        if (!Array.isArray(req.body.keys))
+            selectedPicturesKeys = [req.body.keys];
+        else
+            selectedPicturesKeys = req.body.keys;
+
         let selectedOperation = req.body.operation;
 
         await sqsService.queuePicturesModification(selectedPicturesKeys, selectedOperation);

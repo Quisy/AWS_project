@@ -21,7 +21,6 @@ class SqsService {
         let promise = sqs.sendMessageBatch(params).promise();
 
         return promise.then((data) => {
-            console.log(data);
             if (data.Failed.length > 0) {
                 Statics.Message = { type: 'Danger', content: 'Error while processing request' };
             }
