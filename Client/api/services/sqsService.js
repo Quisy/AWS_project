@@ -11,7 +11,7 @@ let sqs = new AWS.SQS();
 
 class SqsService {
     queuePicturesModification(picturesKeys, operation) {
-        let entries = picturesKeys.map((k, index) => ({ Id: index.toString(), MessageBody: `{'key': '${k}', 'operation': '${operation}' }` }));
+        let entries = picturesKeys.map((k, index) => ({ Id: index.toString(), MessageBody: `{"key": "${k}", "operation": "${operation}" }` }));
 
         let params = {
             QueueUrl: queueUrl,
