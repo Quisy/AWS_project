@@ -8,9 +8,6 @@ import Helpers from './utils/helpers';
 import Service from './service';
 
 
-
-let port = process.env.PORT || 3000;
-
 let app = express();
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
@@ -18,6 +15,6 @@ app.use(bodyParser.json());
 //Routes
 let pictureRouters = new PictureRoutes(app);
 
-app.listen(8080);
+app.listen(80);
 export default app
 
