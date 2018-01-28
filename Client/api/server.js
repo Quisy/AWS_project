@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import PictureRoutes from './routes/pictureRoutes';
 import fs from 'fs';
 import Helpers from './utils/helpers';
-import Service from './service';
 
 
 let app = express();
