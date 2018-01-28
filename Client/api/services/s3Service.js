@@ -16,9 +16,9 @@ class S3Service {
 
         let pictures = [];
 
-        let x = s3.listObjects(params).promise()
+        let promise = s3.listObjects(params).promise()
 
-        return x.then((data) => {
+        return promise.then((data) => {
             let pictures = data.Contents
                 .filter((p) => { return p.Size > 0 })
                 .map((p) => ({ key: p.Key, src: `https://s3-us-west-2.amazonaws.com/${bucketName}/${p.Key}` }));

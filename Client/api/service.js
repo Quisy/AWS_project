@@ -8,6 +8,7 @@ class Service {
         this.app = express();
         this.app.use(bodyParser.urlencoded());
         this.app.use(bodyParser.json());
+       
 
         var handlers = {};
         for (var i = 0; i < requestProcessors.length; i++) {

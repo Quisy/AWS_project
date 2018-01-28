@@ -2,7 +2,10 @@ import util from 'util';
 import S3Form from '../utils/s3form';
 import Policy from '../utils/policy';
 import Helpers from '../utils/helpers';
-import S3Service from '../utils/s3Service';
+import S3Service from '../services/s3Service';
+import SqsService from '../services/sqsService';
+import TemplateRenderer from '../utils/templateRenderer';
+import Statics from '../utils/statics';
 
 
 const AWS_CONFIG_FILE = "./api/configuration/awsConfig.json";
@@ -16,22 +19,34 @@ let policy = new Policy(policyData);
 let s3Form = new S3Form(policy);
 let bucketName = policy.getConditionValueByKey("bucket");
 let s3Service = new S3Service();
-
+let sqsService = new SqsService();
+let templateRenderer = new TemplateRenderer();
 
 class PictureController {
-    constructor() {
-    }
 
-    async renderMainPage(req, res) {
+    renderMainPage(req, res) {
         let fields = s3Form.generateS3FormFields();
         fields = s3Form.addS3CredientalsFields(fields, awsConfig);
 
-        let pictures = await s3Service.getPictures(bucketName, '');
-        console.log(pictures);
-        res.render(INDEX_TEMPLATE, { fields: fields, bucket: bucketName, pictures: pictures });
+        templateRenderer.renderMainPage(res, Statics.Message);
     }
 
-    
+    async modifyPictures(req, res) {
+        console.log(req.body.keys);
+        if(!req.body.keys)
+        {
+            console.log('dsadas0');
+            Statics.Message = {type: 'danger', content: 'No picture selected'};
+            res.redirect('/');
+            return;
+        }
+
+        let selectedPicturesKeys = [req.body.keys];
+        let selectedOperation = req.body.operation;
+
+        await sqsService.queuePicturesModification(selectedPicturesKeys, selectedOperation);
+        res.redirect('/');
+    }
 
 }
 
