@@ -10,7 +10,6 @@ class PictureRoutes
 
         app.route('/modify')
         .get(controller.renderMainPage)
-        .post(controller.modifyPictures)
     }
 }
 

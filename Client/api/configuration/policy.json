@@ -15,7 +15,7 @@
             "acl": "public-read"
         },
         {
-            "success_action_redirect": "http://localhost:3000/"
+            "success_action_redirect": "/"
         },
         [
             "content-length-range",
