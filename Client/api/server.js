@@ -18,6 +18,6 @@ app.use(bodyParser.json());
 //Routes
 let pictureRouters = new PictureRoutes(app);
 
-app.listen(port);
+app.listen(8080);
 export default app
 
