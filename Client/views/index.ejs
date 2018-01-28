@@ -9,10 +9,10 @@
     <nav class="navbar">
     </nav>
     <div class="container">
-        <section id="section1" class="panel panel-default">
+        <section id="panelUpload" class="panel panel-default">
             <div class="panel-heading">
                 <div class="container">
-                    <h3 class="panel-title">POSTing a file to Amazon S3</h3>
+                    <h3 class="panel-title">Upload images</h3>
                 </div>
             </div>
 
@@ -40,12 +40,46 @@
                     </div>
                 </form>
             </div>
+        </section>
+        <section id="panelGallery" class="panel panel-default">
+            <div class="panel-heading">
+                <div class="container">
+                    <h3 class="panel-title">Gallery</h3>
+                </div>
+            </div>
 
-            <footer class="panel-footer">
+            <div class="panel-body">
+                <form action="/modify" method="POST" id="sign-up-form" class="form-vertical">
+                    <div class="form-group">
+                        <label for="operatonSelect">Operation</label>
+                        <select class="form-control" id="operatonSelect">
+                            <option value="rotate">Rotate 180</option>
+                            <option value="greyscale">Greyscale</option>
+                            <option value="blur">Blur</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Modify</button>
+                    </div>
+                    <div class="row">
+                        <% pictures.forEach(function(p){ %>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <a href="<%= p.src %>">
+                                        <img src="<%= p.src %>" class="img-responsive" style="height: 200px; width:auto;">
+                                    </a>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="selectCheck">
+                                    <label class="form-check-label" for="selectCheck" value="<%= p.key %>">Select</label>
+                                </div>
 
+                            </div>
+                            <% }) %>
+                    </div>
+                </form>
+            </div>
 
-            </footer>
         </section>
     </div>
 </body>
+
 </html>

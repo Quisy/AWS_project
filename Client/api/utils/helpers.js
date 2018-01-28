@@ -95,7 +95,6 @@ class Helpers {
             throw new Error("unable to open file: " + fileName);
         }
         var data = fs.readFileSync(fileName, { encoding: 'utf8' });
-        console.log(data);
         var object = JSON.parse(data);
         return object;
     }

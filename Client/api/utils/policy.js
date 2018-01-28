@@ -7,7 +7,7 @@ class Policy {
         this.helpers = new Helpers();
         this.policy = policyData;	
         this.policy.expiration = moment().add(policyData.expiration).toJSON();
-        console.log("policyData " + util.inspect(policyData, false, null));	
+        //console.log("policyData " + util.inspect(policyData, false, null));	
     }
 
     generateEncodedPolicyDocument(){

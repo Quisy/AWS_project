@@ -7,6 +7,9 @@ class PictureRoutes
         
         app.route('/')
         .get(controller.renderMainPage)
+
+        app.route('/modify')
+        .get(controller.modifyPictures)
     }
 }
 

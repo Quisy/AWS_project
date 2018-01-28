@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -w api --exec \"babel-node api --presets es2015\"",
+    "dev": "nodemon --watch api --exec babel-node api/server.js --presets es2015",
     "start": "nodemon build/server.js",
     "build": "babel api -s -D -d build --presets es2015"
   },

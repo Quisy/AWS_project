@@ -12,7 +12,7 @@
             "bucket": "psoirs3bucket"
         },
         {
-            "acl": "private"
+            "acl": "public-read"
         },
         {
             "success_action_redirect": "http://localhost:3000/"
