@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch api --exec babel-node api/server.js --presets es2015",
+    "dev": "nodemon --watch api --exec babel-node api/server.js --presets es2015,es2017",
     "start": "nodemon build/server.js",
-    "build": "babel api -s -D -d build --presets es2015"
+    "build": "babel api -s -D -d build --presets es2015,es2017"
   },
   "author": "Quisy",
   "license": "ISC",
@@ -14,6 +14,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2017": "^6.24.1",
     "babel-preset-stage-0": "^6.5.0",
     "nodemon": "^1.14.11"
   },
