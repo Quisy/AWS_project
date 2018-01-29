@@ -18,7 +18,7 @@ class Init {
     start() {
         setInterval(() => {
             this.work()
-        }, 2000)
+        }, 500)
     }
 }
 

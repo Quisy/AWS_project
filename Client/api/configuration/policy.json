@@ -15,7 +15,7 @@
             "acl": "public-read"
         },
         {
-            "success_action_redirect": "/"
+            "success_action_redirect": "http://PSOIRLB-1404526313.us-west-2.elb.amazonaws.com"
         },
         [
             "content-length-range",

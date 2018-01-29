@@ -3,6 +3,7 @@ import S3Form from '../utils/s3form';
 import Policy from '../utils/policy';
 import Helpers from '../utils/helpers';
 import S3Service from '../services/s3Service';
+import Statics from '../utils/statics';
 
 const AWS_CONFIG_FILE = "./api/configuration/awsConfig.json";
 const POLICY_FILE = "./api/configuration/policy.json";
@@ -18,11 +19,15 @@ let s3Service = new S3Service();
 
 
 class TemplateRenderer {
-    async renderMainPage(res, message){
+    async renderMainPage(res, message) {
         let fields = s3Form.generateS3FormFields();
         fields = s3Form.addS3CredientalsFields(fields, awsConfig);
 
-        let pictures = await s3Service.getPictures(bucketName, '');
+        let originalPictures = await s3Service.getPictures(bucketName, 'Photos/');
+        let modifiedPictures = await s3Service.getPictures(bucketName, 'Edited_Photos/');
+        let pictures = { original: originalPictures, modified: modifiedPictures };
+        Statics.ModifiedPicturesQuant = modifiedPictures.length;
+        Statics.OriginalPicturesQuant = originalPictures.length;
         res.render(INDEX_TEMPLATE, { fields: fields, bucket: bucketName, pictures: pictures, message: message });
     }
 }

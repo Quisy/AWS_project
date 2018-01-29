@@ -67,8 +67,30 @@
                         </select>
                         <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Modify</button>
                     </div>
+                    <div class="row-fluid" style="background-color: #f0f0f0; border-top-left-radius: 10px; border-top-right-radius: 10px; padding:10px">
+                        <div class="span3">Original pictures</div>
+                    </div>
                     <div class="row">
-                        <% pictures.forEach(function(p){ %>
+                        <% pictures.original.forEach(function(p){ %>
+                            <div class="col-xs-3">
+                                <div class="form-group">
+                                    <a href="<%= p.src %>">
+                                        <img src="<%= p.src %>" class="img-responsive" style="height: 200px; width:auto;">
+                                    </a>
+                                </div>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="selectCheck" name="keys" value="<%= p.key %>">
+                                    <label class="form-check-label" for="selectCheck">Select</label>
+                                </div>
+
+                            </div>
+                            <% }) %>
+                    </div>
+                    <div class="row-fluid" style="background-color: #f0f0f0; border-top-left-radius: 10px; border-top-right-radius: 10px; padding:10px">
+                            <div class="span3">Modified pictures</div>
+                        </div>
+                    <div class="row">
+                        <% pictures.modified.forEach(function(p){ %>
                             <div class="col-xs-3">
                                 <div class="form-group">
                                     <a href="<%= p.src %>">

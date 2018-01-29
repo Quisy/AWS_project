@@ -49,6 +49,20 @@ class PictureController {
         let selectedOperation = req.body.operation;
 
         await sqsService.queuePicturesModification(selectedPicturesKeys, selectedOperation);
+
+        let newPicturesQuant = 0;
+        let expectedPicturesQuant = 0;
+
+        if (selectedOperation != 'delete')
+            expectedPicturesQuant = Statics.OriginalPicturesQuant + Statics.ModifiedPicturesQuant + selectedPicturesKeys.length;
+        else
+            expectedPicturesQuant = Statics.OriginalPicturesQuant + Statics.ModifiedPicturesQuant - selectedPicturesKeys.length;
+
+        while (newPicturesQuant !== expectedPicturesQuant) {
+            let pict = await s3Service.getPictures(bucketName, '');
+            newPicturesQuant = pict.length;
+        }
+
         res.redirect('/');
     }
 
