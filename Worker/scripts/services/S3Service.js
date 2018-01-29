@@ -67,7 +67,7 @@ class S3Service {
     }
 
     saveModifiedFile(fileName) {
-        var fileStream = fs.createReadStream(Path.join(`${__dirname}\\..\\..\\`, fileName));
+        var fileStream = fs.createReadStream(Path.join(`${__dirname}/../../`, fileName));
 
         let params = {
             Bucket: bucketName,
